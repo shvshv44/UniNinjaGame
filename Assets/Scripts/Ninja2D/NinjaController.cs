@@ -7,11 +7,14 @@ using System.Collections.Generic;
 public class NinjaController : MonoBehaviour
 {
 
-    private const string JUMP_ANIM_NAME = "IsJump";
-    private const string WALK_ANIM_NAME = "IsWalk";
-    private const string IDLE_ANIM_NAME = "IsIdle";
-    private const string ONWALL_ANIM_NAME = "IsOnWall";
-    private const string DIRECTION_RIGHT_ANIM_NAME = "IsRight";
+    public static class NinjaState
+    {
+        public const string Jump = "IsJump";
+        public const string Walk = "IsWalk";
+        public const string Idle = "IsIdle";
+        public const string OnWall = "IsOnWall";
+        public const string StopWalk = "IsStopWalk";
+    }
 
     public Animator animator;
 
@@ -54,6 +57,8 @@ public class NinjaController : MonoBehaviour
 
     public bool IsInAir { get { return isPlayerInAir; } }
 
+    public string LastState { get { return lastState; } }
+
     private bool GetIsColliding(float timeLastCollision)
     {
         return (Time.realtimeSinceStartup < timeLastCollision + 0.05f);
@@ -68,6 +73,8 @@ public class NinjaController : MonoBehaviour
     private bool keyJumpRetrigger = false;
     private bool keyJumpPressed = false;
     private bool isPlayerOnWall = false;
+
+    private string lastState = NinjaState.Idle;
 
     public PhysicsParams PhysicsParams
     {
@@ -191,6 +198,7 @@ public class NinjaController : MonoBehaviour
         }
         else if (isPlayerOnWall == true)
         {
+
             //let's allow jumping again in case of being on the wall
             if (isKeyDownJump == false)
             {
@@ -270,33 +278,51 @@ public class NinjaController : MonoBehaviour
                 SimAddForce(new Vector2(PhysicsParams.inAirMoveHorizontalForceReverse, 0) * EntityMass);
         }
 
+        bool isMovingWithVelocity = false; // DICIDE IF PLAYER MOVING WITH VELOCITY OR AGIANTS VELOCITY ON GROUND
         //-----------------
         //ON GROUND SIDEWAYS:
         if (isPlayerInAir == false)
         {
             //steering into moving direction (slow accel)
             if (isKeyDownLeft == true && currentVelocity.x <= 0)
+            {
+                // MOVING LEFT WITH VELOCITY DIRECTION!
                 SimAddForce(new Vector2(-PhysicsParams.onGroundMoveHorizontalForce, 0) * EntityMass);
+                isMovingWithVelocity = true;
+            }
             else if (isKeyDownRight == true && currentVelocity.x >= 0)
             {
-                // MOVING RIGHT!
+                // MOVING RIGHT WITH VELOCITY DIRECTION!
                 SimAddForce(new Vector2(PhysicsParams.onGroundMoveHorizontalForce, 0) * EntityMass);
-                SetAnimationProps(true, false, true, false, false);
+                isMovingWithVelocity = true;
             }
+
             //steering against moving direction (fast reverse accel)
             else if (isKeyDownLeft == true && currentVelocity.x >= 0)
             {
-                // MOVING LEFT!
+                // MOVING LEFT AGAINTS VELOCITY DIRECTION (ACTUALY MOVING RIGHT)!
                 SimAddForce(new Vector2(-PhysicsParams.onGroundMoveHorizontalForceReverse, 0) * EntityMass);
-                SetAnimationProps(false, false, true, false, false);
+                isMovingWithVelocity = false;
             }
             else if (isKeyDownRight == true && currentVelocity.x <= 0)
+            {
+                // MOVING LEFT AGAINTS VELOCITY DIRECTION (ACTUALY MOVING LEFT)!
                 SimAddForce(new Vector2(PhysicsParams.onGroundMoveHorizontalForceReverse, 0) * EntityMass);
+                isMovingWithVelocity = false;
+            }
+            
+
             //not steering -> brake due to friction.
             else if (isKeyDownLeft != true && isKeyDownRight != true && currentVelocity.x > 0)
+            {
                 SimAddForce(new Vector2(-PhysicsParams.groundFriction, 0) * EntityMass);
+                isMovingWithVelocity = false;
+            }
             else if (isKeyDownLeft != true && isKeyDownRight != true && currentVelocity.x < 0)
+            {
                 SimAddForce(new Vector2(PhysicsParams.groundFriction, 0) * EntityMass);
+                isMovingWithVelocity = false;
+            }
 
             //in case the velocity is close to 0 and no keys are pressed we should make the the player stop.
             //to do this let's first undo the prior friction force, and then set the velocity to 0.
@@ -311,6 +337,53 @@ public class NinjaController : MonoBehaviour
                 currentVelocity.x = 0;
             }
         }
+
+        // RIGHT AND LEFt FACING DIRECTIONS
+        if (currentVelocity.x > 0)
+            SetDirectionRight(true);
+        else if (currentVelocity.x < 0)
+            SetDirectionRight(false);
+
+        // DEALING WITH ANIMATIONS
+        string currentState = NinjaState.Idle;
+
+        // JUMPING ANIMATION
+        if (isPlayerInAir && !isPlayerOnWall)
+        {
+            currentState = NinjaState.Jump;
+        }
+
+        // JUMPING ANIMATION
+        if (isPlayerOnWall)
+        {
+            currentState = NinjaState.OnWall;
+        }
+
+        // IDLE, WALKING AND STOP WALKING ANIMATIONS
+        if (!isPlayerInAir)
+        {
+            if (currentVelocity.x < PhysicsParams.groundFrictionEpsilon && currentVelocity.x > -PhysicsParams.groundFrictionEpsilon)
+            {
+                currentState = NinjaState.Idle;
+            }
+            else
+            {
+                if (isMovingWithVelocity)
+                    currentState = NinjaState.Walk;
+                else
+                    currentState = NinjaState.StopWalk;
+            }
+        }
+
+        if (currentState != lastState)
+        {
+            SetAnimationProps(currentState); // IMPORTANT!!! CHANGE ANIMATION ONLY WHEN NECCESSARY!
+            lastState = currentState;
+            Debug.Log("CHANGING ANIMATION!");
+        }
+            
+        
+
     }
 
     public void ResetVelocity()
@@ -361,12 +434,26 @@ public class NinjaController : MonoBehaviour
         currentVelocity = Vector2.zero;
     }
 
-    public void SetAnimationProps(bool isRight, bool isIdle, bool isWalk, bool isJump, bool isOnWall)
+    public void SetAnimationProps(string state)
     {
-        animator.SetBool(DIRECTION_RIGHT_ANIM_NAME, isRight);
-        animator.SetBool(IDLE_ANIM_NAME, isIdle);
-        animator.SetBool(WALK_ANIM_NAME, isWalk);
-        animator.SetBool(JUMP_ANIM_NAME, isJump);
-        animator.SetBool(ONWALL_ANIM_NAME, isOnWall);
+        animator.SetBool(NinjaState.Idle, false);
+        animator.SetBool(NinjaState.Walk, false);
+        animator.SetBool(NinjaState.Jump, false);
+        animator.SetBool(NinjaState.OnWall, false);
+        animator.SetBool(NinjaState.StopWalk, false);
+
+        animator.SetBool(state, true);
+    }
+
+    public void SetDirectionRight(bool isRight)
+    {
+        if (isRight)
+        {
+            transform.localRotation = Quaternion.Euler(0, 0, 0);
+        }
+        else
+        {
+            transform.localRotation = Quaternion.Euler(0, 180, 0);
+        }
     }
 }
