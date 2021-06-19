@@ -339,10 +339,20 @@ public class NinjaController : MonoBehaviour
         }
 
         // RIGHT AND LEFt FACING DIRECTIONS
-        if (currentVelocity.x > 0)
-            SetDirectionRight(true);
-        else if (currentVelocity.x < 0)
-            SetDirectionRight(false);
+        if(!IsOnWall)
+        {
+            if (currentVelocity.x > 0)
+                SetDirectionRight(true);
+            else if (currentVelocity.x < 0)
+                SetDirectionRight(false);
+        } else
+        {
+            if (IsOnWallRight)
+                SetDirectionRight(false);
+            else
+                SetDirectionRight(true);
+        }
+        
 
         // DEALING WITH ANIMATIONS
         string currentState = NinjaState.Idle;
@@ -379,7 +389,6 @@ public class NinjaController : MonoBehaviour
         {
             SetAnimationProps(currentState); // IMPORTANT!!! CHANGE ANIMATION ONLY WHEN NECCESSARY!
             lastState = currentState;
-            Debug.Log("CHANGING ANIMATION!");
         }
             
         
