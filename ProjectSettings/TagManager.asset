@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -50,9 +51,15 @@ TagManager:
   - name: Tiles
     uniqueID: 3162827309
     locked: 0
+  - name: Enemy
+    uniqueID: 3285924525
+    locked: 0
   - name: Player
     uniqueID: 2056361823
     locked: 0
   - name: GUI
     uniqueID: 2206340833
+    locked: 0
+  - name: Hints
+    uniqueID: 3746296173
     locked: 0
