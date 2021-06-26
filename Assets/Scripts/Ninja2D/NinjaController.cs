@@ -66,6 +66,7 @@ public class NinjaController : MonoBehaviour
 
     private Vector2 currentVelocity = Vector2.zero;
     private Vector2 currentForce = Vector2.zero;
+    private Vector2 hitForce = Vector2.zero;
 
     private float EntityMass { get { return (PhysicsParams.playerMass); } }
 
@@ -83,6 +84,13 @@ public class NinjaController : MonoBehaviour
     }
 
     public Vector2 CurrentForce { get { return currentForce; } }
+
+    public Vector2 HitForce { get { return hitForce; } }
+
+    public void DefineHitForce(Vector2 force)
+    {
+        hitForce = force;
+    }
 
     public bool IsOnWall { get { return isPlayerOnWall; } }
 
@@ -162,6 +170,10 @@ public class NinjaController : MonoBehaviour
         {
             currentVelocity.x = Mathf.Clamp(currentVelocity.x, -PhysicsParams.onGroundMaxVelHorizontal, PhysicsParams.onGroundMaxVelHorizontal);
         }
+
+        //Hit force handling
+        currentVelocity += hitForce;
+        hitForce = Vector2.zero;
 
         RBody.velocity = currentVelocity;
     }

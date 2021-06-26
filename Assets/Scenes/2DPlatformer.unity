@@ -7334,6 +7334,11 @@ MonoBehaviour:
   - {fileID: 1726707897}
   - {fileID: 245410333}
   - {fileID: 2011744762}
+  maxXRecoil: 15
+  maxYRecoil: 10
+  minXRecoil: 10
+  minYRecoil: 6
+  recoveryTime: 5
 --- !u!1 &624334187
 GameObject:
   m_ObjectHideFlags: 0
