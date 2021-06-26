@@ -14,9 +14,16 @@ public class NinjaController : MonoBehaviour
         public const string Idle = "IsIdle";
         public const string OnWall = "IsOnWall";
         public const string StopWalk = "IsStopWalk";
+        public const string Throw = "IsThrow";
     }
 
     public Animator animator;
+
+    public ShurikenController shuriken;
+
+    public float shurikenSpeed;
+    public float shurikenCooldown;
+    private float currentShurikenCooldown = 0;
 
     private Rigidbody2D RBody { get; set; }
 
@@ -182,6 +189,7 @@ public class NinjaController : MonoBehaviour
     {
 
         bool isKeyDownJump = Input.GetButton("Jump");
+        bool isKeyDownThrow = Input.GetButton("Fire1");
         float inputAxisX = Input.GetAxisRaw("Horizontal");
         bool isKeyDownLeft = inputAxisX < -0.5f;
         bool isKeyDownRight = inputAxisX > 0.5f;
@@ -397,6 +405,21 @@ public class NinjaController : MonoBehaviour
             }
         }
 
+        if (currentShurikenCooldown > 0)
+        {
+            currentShurikenCooldown -= Time.deltaTime;
+            if (currentShurikenCooldown < 0)
+                currentShurikenCooldown = 0;
+        }
+
+        if (isKeyDownThrow && IsOnGround && CanThrowShuriken())
+        {
+            currentState = NinjaState.Throw;
+            currentShurikenCooldown = shurikenCooldown;
+            ShurikenController sc = Instantiate(shuriken, transform.position, transform.rotation);
+            sc.speed = shurikenSpeed * ((transform.localRotation == Quaternion.Euler(0, 0, 0)) ? 1 : -1);
+        }
+
         if (currentState != lastState)
         {
             SetAnimationProps(currentState); // IMPORTANT!!! CHANGE ANIMATION ONLY WHEN NECCESSARY!
@@ -410,6 +433,11 @@ public class NinjaController : MonoBehaviour
     public void ResetVelocity()
     {
         currentVelocity = Vector2.zero;
+    }
+
+    public bool CanThrowShuriken()
+    {
+        return currentShurikenCooldown == 0;
     }
 
     public void OnCollisionStay2D(Collision2D collision)
@@ -462,6 +490,7 @@ public class NinjaController : MonoBehaviour
         animator.SetBool(NinjaState.Jump, false);
         animator.SetBool(NinjaState.OnWall, false);
         animator.SetBool(NinjaState.StopWalk, false);
+        animator.SetBool(NinjaState.Throw, false);
 
         animator.SetBool(state, true);
     }

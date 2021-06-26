@@ -6894,7 +6894,7 @@ GameObject:
   - component: {fileID: 543287097}
   m_Layer: 0
   m_Name: Hint2Trigger
-  m_TagString: Untagged
+  m_TagString: Hint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44233,7 +44233,7 @@ GameObject:
   - component: {fileID: 1249069177}
   m_Layer: 0
   m_Name: Hint3Trigger
-  m_TagString: Untagged
+  m_TagString: Hint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52325,7 +52325,7 @@ GameObject:
   - component: {fileID: 1947719861}
   m_Layer: 0
   m_Name: Hint1Trigger
-  m_TagString: Untagged
+  m_TagString: Hint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54915,7 +54915,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7288870399900955047, guid: 68d70413ef7203e41bc47387046dc431, type: 3}
       propertyPath: m_SortingLayer
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7288870399900955047, guid: 68d70413ef7203e41bc47387046dc431, type: 3}
       propertyPath: m_SortingLayerID
@@ -54925,6 +54925,18 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 1734995819}
+    - target: {fileID: 7288870399900955067, guid: 68d70413ef7203e41bc47387046dc431, type: 3}
+      propertyPath: shuriken
+      value: 
+      objectReference: {fileID: 2852856624122551995, guid: 77c77498fac2da040a66bad54dfae167, type: 3}
+    - target: {fileID: 7288870399900955067, guid: 68d70413ef7203e41bc47387046dc431, type: 3}
+      propertyPath: shurikenSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7288870399900955067, guid: 68d70413ef7203e41bc47387046dc431, type: 3}
+      propertyPath: shurikenCooldown
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7288870399900955067, guid: 68d70413ef7203e41bc47387046dc431, type: 3}
       propertyPath: physicsParams.groundFriction
       value: 4
