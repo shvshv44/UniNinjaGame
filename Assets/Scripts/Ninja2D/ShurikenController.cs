@@ -8,7 +8,7 @@ public class ShurikenController : MonoBehaviour
 
     public float speed;
 
-    private string [] freinlyTags = new string[2] { "Player", "Hint" };
+    private string [] freinlyTags = new string[3] { "Player", "Hint", "Abstract" };
 
     private void FixedUpdate()
     {
