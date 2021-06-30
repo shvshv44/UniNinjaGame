@@ -9,11 +9,14 @@ public class KnightWatchController : MonoBehaviour
     public Transform leftEdge;
     public Transform rightEdge;
 
-    void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.tag == "Player")
         {
-            if (collision.transform.position.x < rightEdge.position.x && collision.transform.position.x > leftEdge.position.x)
+            if ((controller.gameObject.transform.position.x < rightEdge.position.x &&
+                controller.gameObject.transform.position.x > leftEdge.position.x) ||
+                (collision.gameObject.transform.position.x < rightEdge.position.x &&
+                collision.gameObject.transform.position.x > leftEdge.position.x))
                 controller.SetAggressiveMode(collision.gameObject);
             else
                 controller.SetNormalMode();

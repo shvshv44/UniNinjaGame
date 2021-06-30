@@ -19,7 +19,7 @@ public class KnightController : MonoBehaviour
         DIE
     }
 
-    public int lives = 2;
+    public int lives = 1;
     public int speed = 1;
 
     private Animator animator;
@@ -59,13 +59,17 @@ public class KnightController : MonoBehaviour
 
     public void SetNormalMode()
     {
-        currentMode = KnightMode.NORMAL;
+        if(currentMode != KnightMode.DIE)
+            currentMode = KnightMode.NORMAL;
     }
 
     public void SetAggressiveMode(GameObject go)
     {
-        aggressiveTarget = go;
-        currentMode = KnightMode.AGGRESSIVE;
+        if (currentMode != KnightMode.DIE)
+        {
+            aggressiveTarget = go;
+            currentMode = KnightMode.AGGRESSIVE;
+        }
     }
 
     public void SetDieMode()
@@ -103,6 +107,23 @@ public class KnightController : MonoBehaviour
             // Aggessive walk right
             transform.localRotation = Quaternion.Euler(0, 0, 0);
             rb.AddForce(new Vector2(speed * Time.fixedDeltaTime, 0));
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Shuriken")
+        {
+            TakeDamage();
+        }
+    }
+
+    private void TakeDamage()
+    {
+        lives--;
+        if(lives == 0)
+        {
+            SetDieMode();
         }
     }
 }

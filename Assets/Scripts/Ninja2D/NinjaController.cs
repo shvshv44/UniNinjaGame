@@ -418,6 +418,7 @@ public class NinjaController : MonoBehaviour
             currentShurikenCooldown = shurikenCooldown;
             ShurikenController sc = Instantiate(shuriken, transform.position, transform.rotation);
             sc.speed = shurikenSpeed * ((transform.localRotation == Quaternion.Euler(0, 0, 0)) ? 1 : -1);
+            sc.tag = "Shuriken";
         }
 
         if (currentState != lastState)
