@@ -60,6 +60,9 @@ TagManager:
   - name: Player
     uniqueID: 2056361823
     locked: 0
+  - name: Shuriken
+    uniqueID: 4164130643
+    locked: 0
   - name: GUI
     uniqueID: 2206340833
     locked: 0
