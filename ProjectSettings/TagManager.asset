@@ -8,6 +8,7 @@ TagManager:
   - Hint
   - Shuriken
   - Abstract
+  - Fire
   layers:
   - Default
   - TransparentFX
@@ -17,8 +18,8 @@ TagManager:
   - UI
   - Background
   - Platform
-  - 
-  - 
+  - Walls
+  - Grapable
   - Player
   - 
   - 
