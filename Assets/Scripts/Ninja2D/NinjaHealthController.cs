@@ -12,15 +12,16 @@ public class NinjaHealthController : MonoBehaviour
     public float minYRecoil = 0;
     public float recoveryTime = 3;
     public Color hurtColor;
+    public AudioClip hurtSound;
     
-
-
     private int currentHealth;
     private bool isResistable;
     private float currentRecoveryTime;
     private NinjaController controller;
     private Renderer rend;
     private Color baseColor;
+    private AudioSource audioSrc;
+    private float volume = 0.8f;
 
     private Rigidbody2D RBody { get; set; }
 
@@ -33,7 +34,7 @@ public class NinjaHealthController : MonoBehaviour
         controller = GetComponent<NinjaController>();
         rend = GetComponent<Renderer>();
         baseColor = rend.material.color;
-
+        audioSrc = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -61,6 +62,7 @@ public class NinjaHealthController : MonoBehaviour
     {
         if(currentHealth != 0 && !isResistable)
         {
+            audioSrc.PlayOneShot(hurtSound, volume);
             currentHealth--;
             Destroy(healths[currentHealth]);
             currentRecoveryTime = recoveryTime;

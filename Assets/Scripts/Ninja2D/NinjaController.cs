@@ -21,6 +21,11 @@ public class NinjaController : MonoBehaviour
 
     public ShurikenController shuriken;
 
+    public AudioClip throwShurikenSound;
+    public AudioClip jumpSound;
+    private AudioSource audioSrc;
+    private float volume = 0.8f;
+
     public float shurikenSpeed;
     public float shurikenCooldown;
     private float currentShurikenCooldown = 0;
@@ -133,6 +138,7 @@ public class NinjaController : MonoBehaviour
     {
         RBody = GetComponent<Rigidbody2D>();
         allRenderers = new List<Renderer>(GetComponentsInChildren<Renderer>(true));
+        audioSrc = GetComponent<AudioSource>();
     }
 
     public void Update()
@@ -214,6 +220,7 @@ public class NinjaController : MonoBehaviour
 
                 //when pressing jump on ground we set the upwards velocity directly
                 currentVelocity = new Vector2(currentVelocity.x, PhysicsParams.jumpUpVel);
+                audioSrc.PlayOneShot(jumpSound, volume);
             }
         }
         else if (isPlayerOnWall == true)
@@ -236,6 +243,7 @@ public class NinjaController : MonoBehaviour
             {
                 keyJumpPressed = true;
                 keyJumpRetrigger = false;
+                audioSrc.PlayOneShot(jumpSound, volume);
 
                 //in case we are moving down -> let's set the velocity directly
                 //in case we are moving up -> sum up velocity
@@ -419,6 +427,7 @@ public class NinjaController : MonoBehaviour
             ShurikenController sc = Instantiate(shuriken, transform.position, transform.rotation);
             sc.speed = shurikenSpeed * ((transform.localRotation == Quaternion.Euler(0, 0, 0)) ? 1 : -1);
             sc.tag = "Shuriken";
+            audioSrc.PlayOneShot(throwShurikenSound, volume);
         }
 
         if (currentState != lastState)

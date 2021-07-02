@@ -21,20 +21,24 @@ public class KnightController : MonoBehaviour
 
     public int lives = 1;
     public int speed = 1;
+    public AudioClip hurtSound;
 
     private Animator animator;
     private Rigidbody2D rb;
     private PlayerHarmable playerHarmable;
+    private AudioSource audioSrc;
 
     private GameObject aggressiveTarget;
     private KnightMode currentMode;
     private string currentState;
+    private float volume = 0.8f;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         playerHarmable = GetComponent<PlayerHarmable>();
+        audioSrc = GetComponent<AudioSource>();
         currentMode = KnightMode.NORMAL;
     }
 
@@ -121,6 +125,7 @@ public class KnightController : MonoBehaviour
     private void TakeDamage()
     {
         lives--;
+        audioSrc.PlayOneShot(hurtSound, volume);
         if(lives == 0)
         {
             SetDieMode();
