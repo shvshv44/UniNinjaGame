@@ -1,0 +1,169 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2569357133388706770
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2569357133388706769}
+  m_Layer: 0
+  m_Name: KnightArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2569357133388706769
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2569357133388706770}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 26.60095, y: 2.031548, z: -8.89289}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2569357134171978261}
+  - {fileID: 2569357134675212909}
+  - {fileID: 2569357134515099416}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2569357134171978262
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2569357134171978261}
+  m_Layer: 0
+  m_Name: EdgeR
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &2569357134171978261
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2569357134171978262}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 7.37, y: -1.8357462, z: 8.89289}
+  m_LocalScale: {x: 3.3359315, y: 3.359304, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2569357133388706769}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2569357134675212910
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2569357134675212909}
+  m_Layer: 0
+  m_Name: EdgeL
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &2569357134675212909
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2569357134675212910}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.41, y: -1.8357462, z: 8.89289}
+  m_LocalScale: {x: 3.3359315, y: 3.359304, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2569357133388706769}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &29720376151988142
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2569357133388706769}
+    m_Modifications:
+    - target: {fileID: 2576523209079914674, guid: 1423981440b11dc49bf475ab0b4a615f, type: 3}
+      propertyPath: ninjaHealth
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2576523209079914677, guid: 1423981440b11dc49bf475ab0b4a615f, type: 3}
+      propertyPath: m_Name
+      value: Knight
+      objectReference: {fileID: 0}
+    - target: {fileID: 2576523209079914678, guid: 1423981440b11dc49bf475ab0b4a615f, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2576523209079914678, guid: 1423981440b11dc49bf475ab0b4a615f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.369049
+      objectReference: {fileID: 0}
+    - target: {fileID: 2576523209079914678, guid: 1423981440b11dc49bf475ab0b4a615f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.86154807
+      objectReference: {fileID: 0}
+    - target: {fileID: 2576523209079914678, guid: 1423981440b11dc49bf475ab0b4a615f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 8.89289
+      objectReference: {fileID: 0}
+    - target: {fileID: 2576523209079914678, guid: 1423981440b11dc49bf475ab0b4a615f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2576523209079914678, guid: 1423981440b11dc49bf475ab0b4a615f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2576523209079914678, guid: 1423981440b11dc49bf475ab0b4a615f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2576523209079914678, guid: 1423981440b11dc49bf475ab0b4a615f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2576523209079914678, guid: 1423981440b11dc49bf475ab0b4a615f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2576523209079914678, guid: 1423981440b11dc49bf475ab0b4a615f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2576523209079914678, guid: 1423981440b11dc49bf475ab0b4a615f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2576523209083546385, guid: 1423981440b11dc49bf475ab0b4a615f, type: 3}
+      propertyPath: leftEdge
+      value: 
+      objectReference: {fileID: 2569357134675212909}
+    - target: {fileID: 2576523209083546385, guid: 1423981440b11dc49bf475ab0b4a615f, type: 3}
+      propertyPath: rightEdge
+      value: 
+      objectReference: {fileID: 2569357134171978261}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1423981440b11dc49bf475ab0b4a615f, type: 3}
+--- !u!4 &2569357134515099416 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2576523209079914678, guid: 1423981440b11dc49bf475ab0b4a615f, type: 3}
+  m_PrefabInstance: {fileID: 29720376151988142}
+  m_PrefabAsset: {fileID: 0}
