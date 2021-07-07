@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CarPartsScript : MonoBehaviour
 {
@@ -50,6 +51,12 @@ public class CarPartsScript : MonoBehaviour
     }
     void changeLives()
     {
+
+        if (playerLives == 0)
+        {
+            SceneManager.LoadScene("3DCarLose", LoadSceneMode.Single);
+        }
+
         lives.text = "";
         for (int i = 0; i < playerLives; i++)
         {
