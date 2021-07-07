@@ -25,8 +25,9 @@ public class ShurikenThrower : MonoBehaviour
             //float y = Screen.height / 2;
             float y = Screen.height * 4 / 6;
             Ray ray = myCamera.ScreenPointToRay(new Vector3(x, y, 0));
-            Rigidbody grenade = Instantiate(shuriken, transform.position, transform.rotation);
-            grenade.velocity = ray.direction * shurikenSpeed;
+            Rigidbody shurikenThrown = Instantiate(shuriken, transform.position, transform.rotation);
+            shurikenThrown.velocity = ray.direction * shurikenSpeed;
+            shurikenThrown.tag = "Shuriken";
             currentThrowingCooldown = throwingCooldown;
         }
 
