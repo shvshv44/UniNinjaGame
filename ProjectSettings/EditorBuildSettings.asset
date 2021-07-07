@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/2DPlatformLose.unity
     guid: 8005212062f1e1c4b8789235e59b72dd
+  - enabled: 1
+    path: Assets/Scenes/3DCarLose.unity
+    guid: aeebe0b4098311e49bcfa08329ef2869
+  - enabled: 1
+    path: Assets/Scenes/3DCar.unity
+    guid: 7508dc680ca85334f9b25cc677762c53
   m_configObjects: {}
