@@ -9,6 +9,10 @@ TagManager:
   - Shuriken
   - Abstract
   - Fire
+  - hurdle
+  - TreeCar
+  - Fence
+  - ChangeCamera
   layers:
   - Default
   - TransparentFX
