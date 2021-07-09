@@ -6,9 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/StartGame.unity
+    guid: f71a7b528a05bef4aacabded83061e6c
+  - enabled: 1
+    path: Assets/Scenes/3DCar.unity
+    guid: 7508dc680ca85334f9b25cc677762c53
+  - enabled: 1
     path: Assets/Scenes/2DPlatformer.unity
     guid: cdbeaafdfa74155499da95e63f6e7c2d
   - enabled: 1
     path: Assets/Scenes/2DPlatformLose.unity
     guid: 8005212062f1e1c4b8789235e59b72dd
+  - enabled: 1
+    path: Assets/Scenes/3DShooter.unity
+    guid: c307447dfb220b94798a96d7a803c603
   m_configObjects: {}
