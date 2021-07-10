@@ -24,8 +24,8 @@ TagManager:
   - Platform
   - Walls
   - Grapable
+  - Walkable
   - Player
-  - 
   - 
   - 
   - 

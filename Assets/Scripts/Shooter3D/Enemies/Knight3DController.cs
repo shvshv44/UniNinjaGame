@@ -145,8 +145,7 @@ public class Knight3DController : MonoBehaviour
                 anim.SetBool("Moving", true);
             } else if (state == KnightAnimationState.ATTACK)
             {
-                anim.SetInteger("TriggerNumber", 2);
-                anim.SetTrigger("Trigger");
+                anim.SetTrigger("Attack");
             }
         }
     }
