@@ -10,6 +10,7 @@ public class CarPartsScript : MonoBehaviour
     public Text lives;
     public GameObject mainCamera;
     public GameObject winningCamera;
+    public GameObject directionLight;
 
     void Start()
     {
@@ -34,9 +35,13 @@ public class CarPartsScript : MonoBehaviour
 
         if (col.gameObject.tag == "Finish")
         {
-            Debug.Log("camera");
             mainCamera.SetActive(false);
             winningCamera.SetActive(true);
+        }
+
+        if (col.gameObject.tag == "water")
+        {
+            lose();
         }
     }
 
@@ -54,7 +59,7 @@ public class CarPartsScript : MonoBehaviour
 
         if (playerLives == 0)
         {
-            SceneManager.LoadScene("3DCarLose", LoadSceneMode.Single);
+            lose();
         }
 
         lives.text = "";
@@ -62,5 +67,10 @@ public class CarPartsScript : MonoBehaviour
         {
             lives.text += "♥ ";
         }
+    }
+
+    private void lose() {
+        directionLight.transform.rotation = Quaternion.Euler(50, -30, 0);
+        SceneManager.LoadScene("3DCarLose", LoadSceneMode.Single);
     }
 }
