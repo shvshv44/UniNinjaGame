@@ -23,8 +23,10 @@ public class Knight3DController : MonoBehaviour
     public int health;
     public Transform viewOfSight;
     public float minimumAttackDistance;
+    public float attackingCooldown;
 
     private int currentHealth;
+    private float currentAttackingCooldown;
     private Animator anim;
     private Rigidbody rb;
     private NavMeshAgent nav;
@@ -43,6 +45,7 @@ public class Knight3DController : MonoBehaviour
         anim = GetComponent<Animator>();
         nav = GetComponent<NavMeshAgent>();
         isAlive = true;
+        currentAttackingCooldown = 0;
         currentHealth = health;
         currentMode = KnightMode.NORMAL;
         currentAnimationState = KnightAnimationState.IDLE;
@@ -54,6 +57,8 @@ public class Knight3DController : MonoBehaviour
     {
         if(isAlive)
         {
+            UpdateAttackingCooldown();
+
             if(currentMode == KnightMode.NORMAL)
             {
                 SearchForPlayer();
@@ -100,6 +105,7 @@ public class Knight3DController : MonoBehaviour
             SetAnimationState(KnightAnimationState.MOVE);
         } else
         {
+            nav.SetDestination(transform.position);
             SetAnimationState(KnightAnimationState.ATTACK);
             AttackPlayer();
         }
@@ -145,7 +151,22 @@ public class Knight3DController : MonoBehaviour
                 anim.SetBool("Moving", true);
             } else if (state == KnightAnimationState.ATTACK)
             {
+                anim.SetBool("IsAttacking", true);
                 anim.SetTrigger("Attack");
+                currentAttackingCooldown = attackingCooldown;
+            }
+        }
+    }
+
+    private void UpdateAttackingCooldown()
+    {
+        if (currentAttackingCooldown > 0)
+        {
+            currentAttackingCooldown -= Time.deltaTime;
+
+            if (currentAttackingCooldown <= 0)
+            {
+                anim.SetBool("IsAttacking", false);
             }
         }
     }
