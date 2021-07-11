@@ -10,8 +10,7 @@ abstract public class Consumable : MonoBehaviour
     public string description;
     public float intensity;
     public Sprite icon;
-    public PlayerStats stats;
 
-    public abstract void Consume();
+    public abstract void Consume(PlayerStats stats);
 
 }

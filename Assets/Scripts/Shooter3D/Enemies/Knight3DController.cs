@@ -115,7 +115,9 @@ public class Knight3DController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Shuriken" && isAlive)
         {
-            TakeDamage();
+            int damage = collision.gameObject.GetComponent<Shuriken3DController>().damage;
+            Debug.Log("Knight took " + damage + " damage");
+            TakeDamage(damage);
         }
     }
 
@@ -124,9 +126,9 @@ public class Knight3DController : MonoBehaviour
         currentMode = newMode;
     }
 
-    private void TakeDamage()
+    private void TakeDamage(int damage)
     {
-        currentHealth--;
+        currentHealth -= damage;
         if (currentHealth <= 0)
             Die();
     }

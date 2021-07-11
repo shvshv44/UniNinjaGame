@@ -6,6 +6,8 @@ public class Inventory : MonoBehaviour
 {
 
     public Slot[] slots;
+    public PlayerStats stats;
+
     private int selected;
 
     void Start()
@@ -48,7 +50,7 @@ public class Inventory : MonoBehaviour
             Slot currentSlot = slots[selected];
             if(!currentSlot.IsEmpty())
             {
-                currentSlot.Consume();
+                currentSlot.Consume(stats);
                 if (currentSlot.IsEmpty())
                 {
                     ChooseNextSlot();

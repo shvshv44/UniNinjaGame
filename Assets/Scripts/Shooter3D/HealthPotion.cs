@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class HealthPotion : Consumable
 {
-    public override void Consume()
+    public override void Consume(PlayerStats stats)
     {
-        Debug.Log("Consume Potion!");
+        stats.IncreaseHealth((int) intensity);
     }
 }

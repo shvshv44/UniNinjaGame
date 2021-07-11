@@ -37,11 +37,11 @@ public class Slot : MonoBehaviour
         containerImg.sprite = unselectedSprite;
     }
 
-    public void Consume()
+    public void Consume(PlayerStats stats)
     {
         if (consumable != null && quantity > 0)
         {
-            consumable.Consume();
+            consumable.Consume(stats);
             quantity--;
 
             if (quantity == 0)
