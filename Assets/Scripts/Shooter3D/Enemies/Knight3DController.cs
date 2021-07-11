@@ -95,7 +95,6 @@ public class Knight3DController : MonoBehaviour
 
     private void AttackPlayer()
     {
-        // TODO:
         rb.velocity = Vector3.zero;
         if(canDamage)
         {
@@ -123,7 +122,6 @@ public class Knight3DController : MonoBehaviour
         if (collision.gameObject.tag == "Shuriken" && isAlive)
         {
             int damage = collision.gameObject.GetComponent<Shuriken3DController>().damage;
-            Debug.Log("Knight took " + damage + " damage");
             TakeDamage(damage);
         }
     }

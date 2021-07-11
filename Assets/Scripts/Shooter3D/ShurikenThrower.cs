@@ -26,7 +26,8 @@ public class ShurikenThrower : MonoBehaviour
             //float y = Screen.height / 2;
             float y = Screen.height * 4 / 6;
             Ray ray = myCamera.ScreenPointToRay(new Vector3(x, y, 0));
-            GameObject shurikenThrown = Instantiate(shuriken, transform.position, transform.rotation);
+            GameObject shurikenThrown = Instantiate(shuriken, transform.position + (ray.direction * 3), transform.rotation);
+            //GameObject shurikenThrown = Instantiate(shuriken, transform.position, transform.rotation);
             shurikenThrown.GetComponent<Rigidbody>().velocity = ray.direction * shurikenSpeed;
             shurikenThrown.GetComponent<Shuriken3DController>().damage = playerStats.GetDamage();
             shurikenThrown.tag = "Shuriken";
