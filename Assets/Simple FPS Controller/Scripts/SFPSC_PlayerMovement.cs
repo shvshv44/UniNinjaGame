@@ -38,6 +38,8 @@ public class SFPSC_PlayerMovement : MonoBehaviour
     public Transform groundChecker;
     public float groundCheckerDist = 0.2f;
 
+    public PlayerStats playerStats;
+
     [Header("Jump")]
     public float jumpForce = 500.0f;
     public float jumpCooldown = 1.0f;
@@ -92,7 +94,7 @@ public class SFPSC_PlayerMovement : MonoBehaviour
 
         if (!enableMovement)
             return;
-        inputForce = (transform.forward * vInput + transform.right * hInput).normalized * (Input.GetKey(SFPSC_KeyManager.Run) ? runSpeed : walkSpeed);
+        inputForce = (transform.forward * vInput + transform.right * hInput).normalized * (Input.GetKey(SFPSC_KeyManager.Run) ? runSpeed : walkSpeed) * playerStats.GetSpeed();
 
         if (isGrounded)
         {

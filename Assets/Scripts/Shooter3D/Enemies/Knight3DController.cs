@@ -24,6 +24,9 @@ public class Knight3DController : MonoBehaviour
     public Transform viewOfSight;
     public float minimumAttackDistance;
     public float attackingCooldown;
+    public int attackDamage;
+    public PlayerStats playerStats;
+    public bool canDamage;
 
     private int currentHealth;
     private float currentAttackingCooldown;
@@ -49,7 +52,7 @@ public class Knight3DController : MonoBehaviour
         currentHealth = health;
         currentMode = KnightMode.NORMAL;
         currentAnimationState = KnightAnimationState.IDLE;
-
+        canDamage = true;
     }
 
     // Update is called once per frame
@@ -94,7 +97,11 @@ public class Knight3DController : MonoBehaviour
     {
         // TODO:
         rb.velocity = Vector3.zero;
-        Debug.Log("ATTACK!!");
+        if(canDamage)
+        {
+            playerStats.TakeDamage(attackDamage);
+            canDamage = false;
+        }
     }
 
     private void ChasePlayer()
@@ -169,6 +176,8 @@ public class Knight3DController : MonoBehaviour
             if (currentAttackingCooldown <= 0)
             {
                 anim.SetBool("IsAttacking", false);
+                canDamage = true;
+                currentAttackingCooldown = 0;
             }
         }
     }
