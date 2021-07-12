@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/3DShooter.unity
     guid: c307447dfb220b94798a96d7a803c603
+  - enabled: 1
+    path: Assets/Scenes/3DShooterLose.unity
+    guid: a2f825d796e14644f9f085360ae98194
   m_configObjects: {}

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -149,6 +150,7 @@ public class PlayerStats : MonoBehaviour
     private void Die()
     {
         Debug.Log("YOU HAVE DIED!!!");
+        SceneManager.LoadScene("3DShooterLose", LoadSceneMode.Single);
     }
 
     private void UpdateHealthText()
