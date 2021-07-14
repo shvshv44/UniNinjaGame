@@ -28,6 +28,7 @@ public class BossController : MonoBehaviour
     public float damageCooldown;
     public int attackDamage;
     public PlayerStats playerStats;
+    public float waitForDying;
 
     private int currentHealth;
     private float currentAttackingCooldown;
@@ -75,13 +76,21 @@ public class BossController : MonoBehaviour
             {
                 ChasePlayer();
             }
+        } else
+        {
+            waitForDying -= Time.fixedDeltaTime;
+
+            if(waitForDying <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
     private void SearchForPlayer()
     {
         RaycastHit hit;
-        if (Physics.Raycast(viewOfSight.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
+        if (Physics.SphereCast(viewOfSight.position, 5f, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
         {
             if (hit.collider.gameObject.tag == "Player")
             {
@@ -141,16 +150,27 @@ public class BossController : MonoBehaviour
 
     private void TakeDamage(int damage)
     {
-        currentHealth -= damage;
-        if (currentHealth <= 0)
-            Die();
+        if(isAlive)
+        {
+            currentHealth -= damage;
+            if (currentHealth <= 0)
+            {
+                Die();
+            }
+            else
+            {
+                SetAnimationState(BossAnimationState.DAMAGE);
+                currentDamageCooldown = damageCooldown;
+                canBeHit = false;
+            }
+        }
     }
 
     private void Die()
     {
         isAlive = false;
         SetAnimationState(BossAnimationState.DIE);
-        Destroy(gameObject);
+        nav.SetDestination(transform.position);
     }
 
     private void SetAnimationState(BossAnimationState state)
@@ -191,7 +211,7 @@ public class BossController : MonoBehaviour
     {
         if (currentAttackingCooldown > 0)
         {
-            currentAttackingCooldown -= Time.deltaTime;
+            currentAttackingCooldown -= Time.fixedDeltaTime;
 
             if (currentAttackingCooldown <= 0)
             {
@@ -206,7 +226,7 @@ public class BossController : MonoBehaviour
     {
         if (currentDamageCooldown > 0)
         {
-            currentDamageCooldown -= Time.deltaTime;
+            currentDamageCooldown -= Time.fixedDeltaTime;
 
             if (currentDamageCooldown <= 0)
             {
