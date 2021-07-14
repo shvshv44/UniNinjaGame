@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CarPartsScript : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class CarPartsScript : MonoBehaviour
     public Text lives;
     public GameObject mainCamera;
     public GameObject winningCamera;
+    public GameObject directionLight;
 
     void Start()
     {
@@ -33,9 +35,13 @@ public class CarPartsScript : MonoBehaviour
 
         if (col.gameObject.tag == "Finish")
         {
-            Debug.Log("camera");
             mainCamera.SetActive(false);
             winningCamera.SetActive(true);
+        }
+
+        if (col.gameObject.tag == "water")
+        {
+            lose();
         }
     }
 
@@ -50,10 +56,21 @@ public class CarPartsScript : MonoBehaviour
     }
     void changeLives()
     {
+
+        if (playerLives == 0)
+        {
+            lose();
+        }
+
         lives.text = "";
         for (int i = 0; i < playerLives; i++)
         {
             lives.text += "♥ ";
         }
+    }
+
+    private void lose() {
+        directionLight.transform.rotation = Quaternion.Euler(50, -30, 0);
+        SceneManager.LoadScene("3DCarLose", LoadSceneMode.Single);
     }
 }

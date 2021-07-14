@@ -50,7 +50,6 @@ public class TreeCarScript : MonoBehaviour
             transform.Translate(forward * speed * Time.deltaTime);
         }
 
-        //if (Input.GetKeyDown(KeyCode.D))
         if (Input.GetKey("d"))
 
         {
@@ -58,7 +57,6 @@ public class TreeCarScript : MonoBehaviour
             rb.MoveRotation(rb.rotation * deltaRotationRight);
         }
 
-        //if (Input.GetKeyDown(KeyCode.A))
         if (Input.GetKey("a"))
         {
             Quaternion deltaRotationLeft = Quaternion.Euler(rotationLeft * Time.deltaTime);

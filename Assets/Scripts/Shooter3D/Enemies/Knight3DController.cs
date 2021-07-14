@@ -23,8 +23,13 @@ public class Knight3DController : MonoBehaviour
     public int health;
     public Transform viewOfSight;
     public float minimumAttackDistance;
+    public float attackingCooldown;
+    public int attackDamage;
+    public PlayerStats playerStats;
+    public bool canDamage;
 
     private int currentHealth;
+    private float currentAttackingCooldown;
     private Animator anim;
     private Rigidbody rb;
     private NavMeshAgent nav;
@@ -43,10 +48,11 @@ public class Knight3DController : MonoBehaviour
         anim = GetComponent<Animator>();
         nav = GetComponent<NavMeshAgent>();
         isAlive = true;
+        currentAttackingCooldown = 0;
         currentHealth = health;
         currentMode = KnightMode.NORMAL;
         currentAnimationState = KnightAnimationState.IDLE;
-
+        canDamage = true;
     }
 
     // Update is called once per frame
@@ -54,6 +60,8 @@ public class Knight3DController : MonoBehaviour
     {
         if(isAlive)
         {
+            UpdateAttackingCooldown();
+
             if(currentMode == KnightMode.NORMAL)
             {
                 SearchForPlayer();
@@ -87,9 +95,12 @@ public class Knight3DController : MonoBehaviour
 
     private void AttackPlayer()
     {
-        // TODO:
         rb.velocity = Vector3.zero;
-        Debug.Log("ATTACK!!");
+        if(canDamage)
+        {
+            playerStats.TakeDamage(attackDamage);
+            canDamage = false;
+        }
     }
 
     private void ChasePlayer()
@@ -100,6 +111,7 @@ public class Knight3DController : MonoBehaviour
             SetAnimationState(KnightAnimationState.MOVE);
         } else
         {
+            nav.SetDestination(transform.position);
             SetAnimationState(KnightAnimationState.ATTACK);
             AttackPlayer();
         }
@@ -109,7 +121,8 @@ public class Knight3DController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Shuriken" && isAlive)
         {
-            TakeDamage();
+            int damage = collision.gameObject.GetComponent<Shuriken3DController>().damage;
+            TakeDamage(damage);
         }
     }
 
@@ -118,9 +131,9 @@ public class Knight3DController : MonoBehaviour
         currentMode = newMode;
     }
 
-    private void TakeDamage()
+    private void TakeDamage(int damage)
     {
-        currentHealth--;
+        currentHealth -= damage;
         if (currentHealth <= 0)
             Die();
     }
@@ -145,8 +158,24 @@ public class Knight3DController : MonoBehaviour
                 anim.SetBool("Moving", true);
             } else if (state == KnightAnimationState.ATTACK)
             {
-                anim.SetInteger("TriggerNumber", 2);
-                anim.SetTrigger("Trigger");
+                anim.SetBool("IsAttacking", true);
+                anim.SetTrigger("Attack");
+                currentAttackingCooldown = attackingCooldown;
+            }
+        }
+    }
+
+    private void UpdateAttackingCooldown()
+    {
+        if (currentAttackingCooldown > 0)
+        {
+            currentAttackingCooldown -= Time.deltaTime;
+
+            if (currentAttackingCooldown <= 0)
+            {
+                anim.SetBool("IsAttacking", false);
+                canDamage = true;
+                currentAttackingCooldown = 0;
             }
         }
     }

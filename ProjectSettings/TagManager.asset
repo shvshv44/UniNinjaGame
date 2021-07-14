@@ -13,6 +13,7 @@ TagManager:
   - TreeCar
   - Fence
   - ChangeCamera
+  - water
   layers:
   - Default
   - TransparentFX
@@ -24,12 +25,12 @@ TagManager:
   - Platform
   - Walls
   - Grapable
+  - Walkable
+  - Walkable2
+  - Walkable3
+  - Walkable4
+  - 
   - Player
-  - 
-  - 
-  - 
-  - 
-  - 
   - 
   - 
   - 
