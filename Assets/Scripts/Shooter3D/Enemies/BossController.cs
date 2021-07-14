@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class BossController : MonoBehaviour
 {
@@ -83,6 +84,7 @@ public class BossController : MonoBehaviour
             if(waitForDying <= 0)
             {
                 Destroy(gameObject);
+                SceneManager.LoadScene("Win", LoadSceneMode.Single);
             }
         }
     }

@@ -13,6 +13,7 @@ TagManager:
   - TreeCar
   - Fence
   - ChangeCamera
+  - water
   layers:
   - Default
   - TransparentFX
