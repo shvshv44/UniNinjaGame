@@ -70,7 +70,7 @@ public class TreeCarScript : MonoBehaviour
 
         if (isGrounded)
         {
-            if (Input.GetKeyDown("m"))
+            if (Input.GetButtonDown("Jump"))
             {
                 if (NumberJumps == 0)
                 {
