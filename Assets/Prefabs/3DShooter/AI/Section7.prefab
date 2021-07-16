@@ -11192,7 +11192,7 @@ MonoBehaviour:
     VectorActionSize: 02000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: 83af365a768affb4b8432d74daf2cb91, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 095487517845cb347a08f988933a57a1, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 2
   m_BehaviorName: GoingToHealthPoistion
