@@ -15,13 +15,17 @@ public class AIGoingToHealthPoistionScript : Agent
     public override void OnEpisodeBegin()
     {
         transform.localPosition = new Vector3(Random.Range(-68f, -48f), -15, Random.Range(1f, 16f));
-        targetTransform.localPosition = new Vector3(Random.Range(-35f, -15f), -15, Random.Range(128f, 142f));
+        //targetTransform.localPosition = new Vector3(Random.Range(-35f, -15f), -15, Random.Range(128f, 142f));
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
         sensor.AddObservation(transform.localPosition);
-        sensor.AddObservation(targetTransform.localPosition);
+
+        if (targetTransform != null)
+        {
+            sensor.AddObservation(targetTransform.localPosition);
+        }
     }
 
     public override void OnActionReceived(float[] vectorAction)
