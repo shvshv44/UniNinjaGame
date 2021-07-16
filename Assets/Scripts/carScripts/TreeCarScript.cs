@@ -12,6 +12,7 @@ public class TreeCarScript : MonoBehaviour
     public bool isGrounded;
     public float NumberJumps = 0f;
     public float MaxJumps = 2;
+    AudioSource jumpSound;
 
 
     Vector3 rotationRight = new Vector3(0, 70, 0);
@@ -23,6 +24,7 @@ public class TreeCarScript : MonoBehaviour
     void Start()
     {
         StartCoroutine(waitThreeSeconds());
+        jumpSound = GetComponent<AudioSource>();
     }
 
     IEnumerator waitThreeSeconds()
@@ -72,6 +74,7 @@ public class TreeCarScript : MonoBehaviour
         {
             if (Input.GetButtonDown("Jump"))
             {
+                jumpSound.Play();
                 if (NumberJumps == 0)
                 {
                     rb.velocity = new Vector3(0, 5, 0);
