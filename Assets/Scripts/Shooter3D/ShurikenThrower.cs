@@ -40,5 +40,29 @@ public class ShurikenThrower : MonoBehaviour
             if (currentThrowingCooldown < 0)
                 currentThrowingCooldown = 0;
         }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            float x = Screen.width / 2;
+            float y = Screen.height / 2;
+            //float y = Screen.height * 4 / 6;
+
+            int layerMask = 1 << 8;
+            //layerMask = ~layerMask;
+            Ray ray = myCamera.ScreenPointToRay(new Vector3(x, y, 0));
+            RaycastHit hit;
+            Vector3 lookAtPosition = myCamera.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, myCamera.nearClipPlane));
+
+            if (Physics.Raycast(lookAtPosition, ray.direction, out hit, Mathf.Infinity, layerMask))
+            {
+                if (hit.collider.gameObject.TryGetComponent(out VoronoiOreController voc))
+                {
+                    voc.Shatter();
+                }
+
+            }
+
+            Debug.DrawLine(lookAtPosition, transform.position + (ray.direction * 10f), Color.green);
+        }
     }
 }
