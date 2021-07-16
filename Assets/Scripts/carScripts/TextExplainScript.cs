@@ -35,7 +35,7 @@ public class TextExplainScript : MonoBehaviour
         yield return new WaitForSecondsRealtime(2f);
 
         text.text = "";
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(5f);
 
         text.text = "Turn Left";
         yield return new WaitForSecondsRealtime(3f);
