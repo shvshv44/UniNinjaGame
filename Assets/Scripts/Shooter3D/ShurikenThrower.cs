@@ -59,7 +59,6 @@ public class ShurikenThrower : MonoBehaviour
                 {
                     voc.Shatter();
                 }
-
             }
 
             Debug.DrawLine(lookAtPosition, transform.position + (ray.direction * 10f), Color.green);

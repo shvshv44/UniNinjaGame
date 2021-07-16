@@ -84,6 +84,8 @@ public class BossController : MonoBehaviour
             if(waitForDying <= 0)
             {
                 Destroy(gameObject);
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
                 SceneManager.LoadScene("Win", LoadSceneMode.Single);
             }
         }
@@ -91,8 +93,9 @@ public class BossController : MonoBehaviour
 
     private void SearchForPlayer()
     {
+        LayerMask mask = LayerMask.GetMask("Player");
         RaycastHit hit;
-        if (Physics.SphereCast(viewOfSight.position, 5f, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
+        if (Physics.SphereCast(viewOfSight.position, 5f, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, mask))
         {
             if (hit.collider.gameObject.tag == "Player")
             {
