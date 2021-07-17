@@ -7,6 +7,8 @@ public class Inventory : MonoBehaviour
 
     public Slot[] slots;
     public PlayerStats stats;
+    public AudioSource audioSrc;
+    public AudioClip usePotionSound;
 
     private int selected;
 
@@ -50,6 +52,7 @@ public class Inventory : MonoBehaviour
             Slot currentSlot = slots[selected];
             if(!currentSlot.IsEmpty())
             {
+                audioSrc.PlayOneShot(usePotionSound, 0.7f);
                 currentSlot.Consume(stats);
                 if (currentSlot.IsEmpty())
                 {

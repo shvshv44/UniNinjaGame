@@ -30,6 +30,8 @@ public class BossController : MonoBehaviour
     public int attackDamage;
     public PlayerStats playerStats;
     public float waitForDying;
+    public AudioSource audioSrc;
+    public AudioClip monsterShoutSound;
 
     private int currentHealth;
     private float currentAttackingCooldown;
@@ -102,6 +104,7 @@ public class BossController : MonoBehaviour
                 Debug.DrawRay(viewOfSight.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.red);
                 aggressiveTarget = hit.collider.gameObject;
                 ChangeMode(BossMode.AGGRESSIVE);
+                audioSrc.PlayOneShot(monsterShoutSound, 0.7f);
             }
             else
             {
@@ -173,6 +176,7 @@ public class BossController : MonoBehaviour
 
     private void Die()
     {
+        audioSrc.PlayOneShot(monsterShoutSound, 0.7f);
         isAlive = false;
         SetAnimationState(BossAnimationState.DIE);
         nav.SetDestination(transform.position);
