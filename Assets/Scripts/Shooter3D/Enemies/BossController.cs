@@ -30,6 +30,8 @@ public class BossController : MonoBehaviour
     public int attackDamage;
     public PlayerStats playerStats;
     public float waitForDying;
+    public AudioSource audioSrc;
+    public AudioClip monsterShoutSound;
 
     private int currentHealth;
     private float currentAttackingCooldown;
@@ -84,6 +86,8 @@ public class BossController : MonoBehaviour
             if(waitForDying <= 0)
             {
                 Destroy(gameObject);
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
                 SceneManager.LoadScene("Win", LoadSceneMode.Single);
             }
         }
@@ -91,14 +95,16 @@ public class BossController : MonoBehaviour
 
     private void SearchForPlayer()
     {
+        LayerMask mask = LayerMask.GetMask("Player");
         RaycastHit hit;
-        if (Physics.SphereCast(viewOfSight.position, 5f, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
+        if (Physics.SphereCast(viewOfSight.position, 5f, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, mask))
         {
             if (hit.collider.gameObject.tag == "Player")
             {
                 Debug.DrawRay(viewOfSight.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.red);
                 aggressiveTarget = hit.collider.gameObject;
                 ChangeMode(BossMode.AGGRESSIVE);
+                audioSrc.PlayOneShot(monsterShoutSound, 0.7f);
             }
             else
             {
@@ -170,6 +176,7 @@ public class BossController : MonoBehaviour
 
     private void Die()
     {
+        audioSrc.PlayOneShot(monsterShoutSound, 0.7f);
         isAlive = false;
         SetAnimationState(BossAnimationState.DIE);
         nav.SetDestination(transform.position);

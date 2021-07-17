@@ -149,7 +149,8 @@ public class PlayerStats : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("YOU HAVE DIED!!!");
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         SceneManager.LoadScene("3DShooterLose", LoadSceneMode.Single);
     }
 
