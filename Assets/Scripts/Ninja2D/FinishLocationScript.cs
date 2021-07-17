@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FinishLocationScript : MonoBehaviour
 {
@@ -8,8 +9,7 @@ public class FinishLocationScript : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
-            Debug.Log("LEVEL FINISHED!!!!");
-            Destroy(gameObject);
+            SceneManager.LoadScene("3DShooter", LoadSceneMode.Single);
         }
     }
 }
