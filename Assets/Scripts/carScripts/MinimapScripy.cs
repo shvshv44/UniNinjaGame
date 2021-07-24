@@ -25,7 +25,7 @@ public class MinimapScripy : MonoBehaviour
     public void OnPostRender()
     {
 
-        cameraBoxMaterial = GetComponent<SpriteRenderer>().sharedMaterial; ;
+        cameraBoxMaterial = GetComponent<SpriteRenderer>().sharedMaterial;
         Vector3 minViewportPoint = minimap.WorldToViewportPoint(GetCameraFrustumPoint(new Vector3(0f, 0f)));
         Vector3 maxViewportPoint = minimap.WorldToViewportPoint(GetCameraFrustumPoint(new Vector3(Screen.width / 4, Screen.height / 4)));
 
