@@ -14,22 +14,27 @@ public class TreeCarScript : MonoBehaviour
     public float MaxJumps = 2;
     AudioSource jumpSound;
 
-
     Vector3 rotationRight = new Vector3(0, 70, 0);
     Vector3 rotationLeft = new Vector3(0, -70, 0);
 
     Vector3 forward = new Vector3(-1, 0, 0);
     Vector3 backward = new Vector3(1, 0, 0);
 
+    private bool isCanDrive;
+
     void Start()
     {
-        StartCoroutine(waitThreeSeconds());
+        isCanDrive = false;
         jumpSound = GetComponent<AudioSource>();
     }
 
-    IEnumerator waitThreeSeconds()
+    IEnumerator WaitInStartSeconds()
     {
-        yield return new WaitForSeconds(2);
+        while (!isCanDrive)
+        {
+            yield return new WaitForSeconds(2);
+            isCanDrive = true;
+        }
     }
 
     void OnCollisionEnter(Collision other)
@@ -40,52 +45,57 @@ public class TreeCarScript : MonoBehaviour
 
     void FixedUpdate()
     {
+        StartCoroutine(WaitInStartSeconds());
 
-        transform.Translate(new Vector3(-6, 0, 0) * Time.deltaTime);
-
-        if (Input.GetKey("s"))
+        if(isCanDrive)
         {
-            transform.Translate(backward * speed * Time.deltaTime);
-        }
-        if (Input.GetKey("w"))
-        {
-            transform.Translate(forward * speed * Time.deltaTime);
-        }
+            transform.Translate(new Vector3(-6, 0, 0) * Time.fixedDeltaTime);
 
-        if (Input.GetKey("d"))
-
-        {
-            Quaternion deltaRotationRight = Quaternion.Euler(rotationRight * Time.deltaTime);
-            rb.MoveRotation(rb.rotation * deltaRotationRight);
-        }
-
-        if (Input.GetKey("a"))
-        {
-            Quaternion deltaRotationLeft = Quaternion.Euler(rotationLeft * Time.deltaTime);
-            rb.MoveRotation(rb.rotation * deltaRotationLeft);
-        }
-
-        if (NumberJumps > MaxJumps - 1)
-        {
-            isGrounded = false;
-        }
-
-        if (isGrounded)
-        {
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetKey("s"))
             {
-                jumpSound.Play();
-                if (NumberJumps == 0)
+                transform.Translate(backward * speed * Time.fixedDeltaTime);
+            }
+            if (Input.GetKey("w"))
+            {
+                transform.Translate(forward * speed * Time.fixedDeltaTime);
+            }
+
+            if (Input.GetKey("d"))
+
+            {
+                Quaternion deltaRotationRight = Quaternion.Euler(rotationRight * Time.fixedDeltaTime);
+                rb.MoveRotation(rb.rotation * deltaRotationRight);
+            }
+
+            if (Input.GetKey("a"))
+            {
+                Quaternion deltaRotationLeft = Quaternion.Euler(rotationLeft * Time.fixedDeltaTime);
+                rb.MoveRotation(rb.rotation * deltaRotationLeft);
+            }
+
+            if (NumberJumps > MaxJumps - 1)
+            {
+                isGrounded = false;
+            }
+
+            if (isGrounded)
+            {
+                if (Input.GetButtonDown("Jump"))
                 {
-                    rb.velocity = new Vector3(0, 5, 0);
+                    jumpSound.Play();
+                    if (NumberJumps == 0)
+                    {
+                        rb.velocity = new Vector3(0, 5, 0);
+                    }
+                    else
+                    {
+                        rb.velocity = new Vector3(0, 8, 0);
+                    }
+                    NumberJumps += 1;
                 }
-                else
-                {
-                    rb.velocity = new Vector3(0, 8, 0);
-                }
-                NumberJumps += 1;
             }
         }
+       
     }
 }
  
